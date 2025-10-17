@@ -1,11 +1,10 @@
-//your JS code here. If required.
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 const checkbox = document.getElementById('checkbox');
 const submitBtn = document.getElementById('submit');
 const existingBtn = document.getElementById('existing');
 
-// Check if credentials are stored in localStorage
+// Check localStorage on load
 window.onload = function () {
   const savedUser = localStorage.getItem('username');
   const savedPass = localStorage.getItem('password');
@@ -17,13 +16,13 @@ window.onload = function () {
   }
 };
 
-// Handle form submission
+// Form submission
 document.getElementById('loginForm').addEventListener('submit', function (e) {
   e.preventDefault();
   const username = usernameInput.value.trim();
   const password = passwordInput.value.trim();
 
-  if (username === '' || password === '') return;
+  if (!username || !password) return;
 
   alert(`Logged in as ${username}`);
 
@@ -35,12 +34,10 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
     localStorage.removeItem('password');
   }
 
-  // Re-check if we need to show the existing user button
-  const savedUser = localStorage.getItem('username');
-  existingBtn.style.display = savedUser ? 'inline-block' : 'none';
+  existingBtn.style.display = localStorage.getItem('username') ? 'inline-block' : 'none';
 });
 
-// Handle "Login as existing user" button click
+// Existing user login
 existingBtn.addEventListener('click', function () {
   const savedUser = localStorage.getItem('username');
   if (savedUser) {
